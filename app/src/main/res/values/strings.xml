@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">XMiPushEnhance</string>
+    <string name="xposed_description">Fake XiaoMi Phone plugin, turn on if you need it.</string>
+</resources>

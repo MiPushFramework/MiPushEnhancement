@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="xposed_description">小米推送机型伪装插件，如需使用请开启</string>
+</resources>
