@@ -31,6 +31,7 @@ public final class Constants {
     // Application ID Blacklists. The module will never hook these packages
     // due to known compatibility issues.
     public static final String[] BLACKLIST = new String[] {
+            "android",
             "com.google.android",
             "de.robv.android.xposed.installer",
             "com.xiaomi.xmsf",
