@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">XMiPushEnhance</string>
     <string name="xposed_description">Fake XiaoMi Phone plugin, turn on if you need it.</string>
+
+    <string name="pref_menu_get_conf_path">View Config Path</string>
+    <string name="pref_cat_module">Module</string>
+    <string name="pref_working_mode">Working Mode</string>
+    <string name="pref_working_mode_summary">Determines what apps to hack. Note: A built-in blacklist always applies.</string>
+    <array name="pref_working_mode_entries">
+        <item>Blacklist</item>
+        <item>Whitelist</item>
+    </array>
+    <array name="pref_working_mode_entry_values">
+        <item>blacklist</item>
+        <item>whitelist</item>
+    </array>
+    <string name="pref_blacklist">Blacklist</string>
+    <string name="pref_blacklist_summary">Apps that are never hacked.</string>
+    <string name="pref_whitelist">Whitelist</string>
+    <string name="pref_whitelist_summary">Only apps that will be hacked.</string>
 </resources>

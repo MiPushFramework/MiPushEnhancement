@@ -1,3 +1,9 @@
+repositories {
+    maven {
+        url "https://dl.bintray.com/rikkaw/MaterialPreference"
+    }
+}
+
 apply plugin: 'com.android.application'
 
 android {
@@ -28,4 +34,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     compileOnly 'de.robv.android.xposed:api:82'
+    implementation 'moe.shizuku.preference:preference-android:4.0.0'
+    implementation 'moe.shizuku.preference:preference-simplemenu-android:4.0.0'
+    implementation 'androidx.fragment:fragment:1.2.5'
+    implementation 'org.ini4j:ini4j:0.5.4'
 }

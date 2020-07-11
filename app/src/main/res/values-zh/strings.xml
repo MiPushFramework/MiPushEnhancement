@@ -2,4 +2,17 @@
 <resources>
     <string name="app_name">小米推送增强</string>
     <string name="xposed_description">小米推送机型伪装插件，如需使用请开启</string>
+
+    <string name="pref_menu_get_conf_path">查看配置地址</string>
+    <string name="pref_cat_module">模块</string>
+    <string name="pref_working_mode">工作模式</string>
+    <string name="pref_working_mode_summary">决定模块工作模式。请注意：内置黑名单会一直起作用。</string>
+    <array name="pref_working_mode_entries">
+        <item>黑名单</item>
+        <item>白名单</item>
+    </array>
+    <string name="pref_blacklist">黑名单</string>
+    <string name="pref_blacklist_summary">避免增强的应用</string>
+    <string name="pref_whitelist">白名单</string>
+    <string name="pref_whitelist_summary">仅增强的应用</string>
 </resources>
