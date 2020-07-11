@@ -26,7 +26,7 @@ public class MiPushEnhanceHook implements IXposedHookLoadPackage {
 
     private static boolean inBuiltInBlackList(String pkgName) {
         for (final String b : Constants.BLACKLIST) {
-            if (pkgName.contains(b)) {
+            if (pkgName.matches(b)) {
                 return true;
             }
         }

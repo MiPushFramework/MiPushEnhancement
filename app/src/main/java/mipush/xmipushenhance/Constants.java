@@ -43,11 +43,12 @@ public final class Constants {
     // due to known compatibility issues.
     public static final String[] BLACKLIST = new String[] {
             "android",
-            "com.google.android",
-            "de.robv.android.xposed.installer",
-            "com.xiaomi.xmsf",
-            "com.tencent.mm",
-            "top.trumeet.mipush"
+            "com\\.android.*",
+            "com\\.google\\.android.*",
+            "de\\.robv\\.android\\.xposed\\.installer",
+            "com\\.xiaomi\\.xmsf",
+            "com\\.tencent\\.mm",
+            "top\\.trumeet\\.mipush"
     };
 
     static {
