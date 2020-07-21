@@ -1,6 +1,7 @@
 package top.trumeet.mipush.settings;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.meowcat.xposed.mipush.BuildConfig;
 import org.meowcat.xposed.mipush.R;
 import org.meowcat.xposed.mipush.Utils;
 
@@ -31,11 +33,13 @@ import java.util.stream.Stream;
 import moe.shizuku.preference.MultiSelectListPreference;
 import moe.shizuku.preference.Preference;
 import moe.shizuku.preference.SimpleMenuPreference;
+import moe.shizuku.preference.SwitchPreference;
 import top.trumeet.mipush.settings.ini.IniConf;
 import top.trumeet.mipush.settings.ini.IniConstants;
 import top.trumeet.mipush.settings.ini.IniUtils;
 
 import static org.meowcat.xposed.mipush.Constants.TAG;
+import static org.meowcat.xposed.mipush.Utils.hideIcon;
 
 public class PreferenceFragment extends moe.shizuku.preference.PreferenceFragment implements
         SharedPreferences.OnSharedPreferenceChangeListener {
@@ -54,6 +58,9 @@ public class PreferenceFragment extends moe.shizuku.preference.PreferenceFragmen
                 throw new RuntimeException(e);
             }
             render();
+
+            SwitchPreference hide_icon = (SwitchPreference) findPreference("hide_icon");
+            hide_icon.setChecked(mConf.get(IniUtils.convertKeyToIni("hide_icon"), "false").equalsIgnoreCase("true"));
         }
     }
 
@@ -61,6 +68,7 @@ public class PreferenceFragment extends moe.shizuku.preference.PreferenceFragmen
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         getPreferenceManager().setSharedPreferencesName("settings");
         addPreferencesFromResource(R.xml.preferences);
+
         Preference device_status = findPreference("device_status");
         String status = Utils.isEnhancementEnabled() ? getString(R.string.pref_enhancement_status_success) : getString(R.string.pref_enhancement_status_failed);
         status = String.format("%s\n\n%s", status, String.format(getString(R.string.pref_enhancement_status_summary), Build.MANUFACTURER, SystemProperties.get("ro.product.manufacturer", "failed"), SystemProperties.get("ro.product.vendor.manufacturer", "failed"), Build.BRAND, SystemProperties.get("ro.product.brand", "failed"), SystemProperties.get("ro.product.vendor.brand", "failed"), SystemProperties.get("ro.miui.ui.version.name", "failed"), SystemProperties.get("ro.miui.ui.version.code", "failed"), SystemProperties.get("ro.miui.version.code_time", "failed")));
@@ -111,6 +119,10 @@ public class PreferenceFragment extends moe.shizuku.preference.PreferenceFragmen
         Log.d(TAG, "onSharedPreferenceChanged(): " + key);
         if (key.equals("module_blacklist") || key.equals("module_whitelist")) {
             mConf.putAll(IniUtils.convertKeyToIni(key), new ArrayList<>(Objects.requireNonNull(sharedPreferences.getStringSet(key, Collections.emptySet()))));
+        } else if (key.equals("hide_icon")) {
+            boolean isChecked = sharedPreferences.getBoolean(key, false);
+            mConf.put(IniUtils.convertKeyToIni(key), isChecked ? "true" : "false");
+            hideIcon(requireContext().getPackageManager(), new ComponentName(requireContext(), PreferenceActivity.class.getName()), isChecked);
         } else {
             mConf.put(IniUtils.convertKeyToIni(key), sharedPreferences.getString(key, null));
         }

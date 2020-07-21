@@ -1,7 +1,9 @@
 package org.meowcat.xposed.mipush;
 
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.system.Os;
 import android.system.OsConstants;
 import android.util.Base64;
@@ -70,5 +72,20 @@ public class Utils {
      */
     public static boolean isEnhancementEnabled() {
         return false;
+    }
+
+    /**
+     * Hide or show app icon
+     * @param packageManager packageNamager
+     * @param componentName compoentName
+     * @param hide hide or show icon
+     */
+    public static void hideIcon(PackageManager packageManager, ComponentName componentName, boolean hide) {
+        packageManager.getComponentEnabledSetting(componentName);
+        if (hide) {
+            packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        } else {
+            packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT, PackageManager.DONT_KILL_APP);
+        }
     }
 }
