@@ -7,13 +7,14 @@ repositories {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 28
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "top.trumeet.top.trumeet.mipush.xmipushenhance"
+        applicationId "org.meowcat.xposed.mipush"
         minSdkVersion 24
-        targetSdkVersion 30
+        //noinspection OldTargetApi
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }

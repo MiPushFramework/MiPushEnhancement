@@ -1,10 +1,10 @@
-package top.trumeet.mipush.xmipushenhance.settings.ini;
-
-import static android.system.OsConstants.*;
+package top.trumeet.mipush.settings.ini;
 
 public final class IniConstants {
-    static final int DESIRED_PERMISSION_INI = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-    static final int DESIRED_PERMISSION_PARENT = S_IXOTH;
+    public static final String TAG = "MiPushIniConfig";
+
+    // linux permission rwx rwx rwx, OCT is 00777, DEX is 511
+    public static final int rwxrwxrwx = 511;
 
     public static final IniKey MODULE_WORKING_MODE = new IniKey("module", "working_mode");
     public static final IniKey MODULE_BLACKLIST = new IniKey("module", "blacklist");

@@ -1,4 +1,4 @@
-package top.trumeet.mipush.xmipushenhance.settings.ini;
+package top.trumeet.mipush.settings.ini;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,12 +24,12 @@ public final class IniKey {
 
     @NonNull
     public static IniKey of(@NonNull String spKey) {
-        return IniHelper.convertKeyToIni(spKey);
+        return IniUtils.convertKeyToIni(spKey);
     }
 
     @NonNull
     public String toSP() {
-        return IniHelper.convertKeyToSP(this);
+        return IniUtils.convertKeyToSP(this);
     }
 
     @Override

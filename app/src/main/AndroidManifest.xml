@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="top.trumeet.mipush.xmipushenhance"
+    package="org.meowcat.xposed.mipush"
     android:installLocation="internalOnly">
 
     <application
@@ -20,7 +20,7 @@
             android:name="xposedminversion"
             android:value="53" />
 
-        <activity android:name=".settings.PreferenceActivity">
+        <activity android:name="top.trumeet.mipush.settings.PreferenceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

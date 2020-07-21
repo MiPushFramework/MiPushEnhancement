@@ -1,14 +1,11 @@
-package top.trumeet.mipush.xmipushenhance.settings.ini;
+package top.trumeet.mipush.settings.ini;
 
 import android.content.Context;
-import android.os.Process;
-import android.system.ErrnoException;
-import android.system.Os;
-import android.system.StructStat;
 import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import top.trumeet.mipush.xmipushenhance.Constants;
+
 import org.ini4j.Ini;
 import org.ini4j.Profile;
 
@@ -19,32 +16,34 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-import static top.trumeet.mipush.xmipushenhance.settings.ini.IniConstants.*;
+import static top.trumeet.mipush.settings.ini.IniConstants.INI_DEFAULT;
+import static top.trumeet.mipush.settings.ini.IniConstants.TAG;
+import static top.trumeet.mipush.settings.ini.IniConstants.rwxrwxrwx;
+import static top.trumeet.mipush.settings.ini.IniUtils.setFilePermissionsFromMode;
 
 /**
  * The configuration that can be read both in module hook context
  * and the configuration UI.
- *
+ * <p>
  * The reason of not using SharedPreference directly is that it can hardly be chmod-ed to world readable,
  * since the API is not supported since Android N, and the SharedPreferenceImpl chmods it every time when being constructed.
- *
+ * </p>
  * Copying the SharedPreference XML to other places is still hard since the XML structure is not best optimized for our private use.
- *
+ * <p>
  * Creating a configuration ourselves is the best solution overall. It will be stored in the data folder for each user.
  * The module will try to read it every time it hooks an app. If the configuration is absent for the user, the module
  * will fallback to the default configuration. Hence, it is important to install the module and configure it every time you
  * create a new user or profile.
- *
  * The reason of choosing ini is that it is simple to read and write for both human and computer. Furthermore, it is
  * the most common format of configuration in *nix systems. Doing so will enable us to create the most *nix-like configuration style.
- *
+ * </p>
  * Some paths to use: (They are not hard-coded since the internal path is subject to change on different ROMs)
- * /data/user/user_id/top.trumeet.mipush.xmipushenhance/etc/
- * /data/user/user_id/top.trumeet.mipush.xmipushenhance/etc/module.conf
+ * /data/user_de/user_id/top.trumeet.mipush.xmipushenhance/etc/
+ * /data/user_de/user_id/top.trumeet.mipush.xmipushenhance/etc/module.conf
  */
 public class IniConf {
-    private static final String TAG = "IniConf";
 
     private final Ini mIni;
 
@@ -54,9 +53,9 @@ public class IniConf {
      * If the file is null, write() will do nothing.
      */
     public IniConf(@Nullable final File file) throws IOException {
-        Log.d(TAG, "IniConf() in uid " + Process.myUid() + ", pid " + Process.myPid());
-        if (file != null) ensurePermission(file);
-        Log.d(TAG, "Using configuration " + file);
+        if (file != null) {
+            setFilePermissionsFromMode(file, rwxrwxrwx);
+        }
         mIni = createDefaultConfig(file);
         // TODO: File locking?
     }
@@ -64,19 +63,13 @@ public class IniConf {
     /**
      * Construct using the default path
      */
-    public IniConf(int userId, @NonNull Context context) throws IOException {
-        this(Constants.getConfigPath(userId, context));
-    }
-
-    /**
-     * Construct using the default path (with current userId)
-     */
-    public IniConf(@NonNull Context context) throws IOException {
-        this(Constants.getConfigPath(Process.myUserHandle().hashCode(), context));
+    public IniConf(Context context) throws IOException {
+        this(IniUtils.getConfigPath(context));
     }
 
     /**
      * Creates or upgrades the current configuration.
+     *
      * @param file The current configuration file.
      * @return The upgraded ini. It will not be stored in file system.
      * @throws IOException In case there's errors.
@@ -103,8 +96,9 @@ public class IniConf {
     /**
      * Compare parent > child. Copy missing sections or options from the parent to child.
      * This method does not support nested sections.
+     *
      * @param parent Parent INI. It will not be changed.
-     * @param child Child INI. It will be changed.
+     * @param child  Child INI. It will be changed.
      */
     private void compare(@NonNull Ini parent, @NonNull Ini child) {
         for (final String section : parent.keySet()) {
@@ -115,10 +109,10 @@ public class IniConf {
             } else {
                 final Profile.Section parentSection = parent.get(section);
                 final Profile.Section childSection = child.get(section);
-                for (final String option : parentSection.keySet()) {
-                    if (!childSection.containsKey(option)) {
+                for (final String option : Objects.requireNonNull(parentSection).keySet()) {
+                    if (!Objects.requireNonNull(childSection).containsKey(option)) {
                         Log.i(TAG, "Adding option " + option);
-                        childSection.put(option, parentSection.get(option));
+                        childSection.put(option, Objects.requireNonNull(parentSection.get(option)));
                         childSection.putComment(option, parentSection.getComment(option));
                     }
                 }
@@ -131,11 +125,11 @@ public class IniConf {
      */
     public Map<IniKey, Object> getAll() {
         Map<IniKey, Object> map = new HashMap<>(mIni.keySet().size() * 3);
-        for(final String sectionKey : mIni.keySet()) {
+        for (final String sectionKey : mIni.keySet()) {
             for (final Profile.Section section : mIni.getAll(sectionKey)) {
                 for (final String option : section.keySet()) {
                     map.put(new IniKey(sectionKey, option),
-                            section.get(option));
+                            Objects.requireNonNull(section.get(option)));
                 }
             }
         }
@@ -145,51 +139,22 @@ public class IniConf {
     /**
      * Write all changes to the file system. If the file is absent, it will be created.
      */
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void write() throws IOException {
         Log.d(TAG, "Saving configuration");
         if (mIni.getFile() != null) {
             // Create the parent if needed.
             final File parent = mIni.getFile().getParentFile();
-            if (!parent.exists()) {
+            if (!Objects.requireNonNull(parent).exists()) {
                 parent.mkdir();
             }
             // Write, or create.
             mIni.store();
 
-            ensurePermission(mIni.getFile());
+            setFilePermissionsFromMode(mIni.getFile(), rwxrwxrwx);
         } else {
             Log.w(TAG, "File is null. Ignoring.");
         }
-    }
-
-    private void ensurePermission(@NonNull final File iniFile) throws IOException {
-        try {
-            if (!iniFile.exists()) return;
-            final StructStat stat = Os.stat(iniFile.getAbsolutePath());
-            if (stat.st_uid != Process.myUid()) {
-                // Do not run at all
-                return;
-            }
-        } catch (ErrnoException ignored) {
-            return;
-        }
-
-        // Apply other +x to each parent folders.
-        // Typically /, /data, /data/data, /data/user should have this bit set
-        File current = iniFile;
-        while(true) {
-            final File parent = current.getParentFile();
-            if (parent == null) break;
-            // It will return false if we can not chmod.
-            // From then on, we will be reaching the furthest folder we can chmod.
-            if (IniHelper.addmod(parent, DESIRED_PERMISSION_PARENT)) {
-                Log.d(TAG, String.format("Successfully added S_IXOTH to parent %1$s", parent.getAbsolutePath()));
-                current = parent;
-            } else {
-                break;
-            }
-        }
-        IniHelper.chmod(iniFile, DESIRED_PERMISSION_INI);
     }
 
     /**
