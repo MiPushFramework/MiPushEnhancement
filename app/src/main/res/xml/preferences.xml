@@ -1,27 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--suppress AndroidElementNotAllowed -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- The keys of preferences are converted to the ini section / options.
-        Please refer to IniHelper.java for more details.
 
-        This XML only describes known preferences, which are available through UI.
-        Any keys that are present in the INI but not the UI will not be shown.
-    -->
     <PreferenceCategory
-        android:title="@string/pref_cat_module">
+        android:title="@string/pref_cat_module"
+        android:key="pref_category">
+
+        <Preference
+            android:key="device_status"
+            android:title="@string/pref_enhancement_status"
+            android:summary="@string/pref_enhancement_status_failed" />
+
         <SimpleMenuPreference
-            android:key="module_working_mode"
-            android:title="@string/pref_working_mode"
-            android:summary="@string/pref_working_mode_summary"
+            android:defaultValue="blacklist"
             android:entries="@array/pref_working_mode_entries"
             android:entryValues="@array/pref_working_mode_entry_values"
-            android:defaultValue="blacklist" />
+            android:key="module_working_mode"
+            android:summary="@string/pref_working_mode_summary"
+            android:title="@string/pref_working_mode" />
+
         <MultiSelectListPreference
             android:key="module_blacklist"
-            android:title="@string/pref_blacklist"
-            android:summary="@string/pref_blacklist_summary"/>
+            android:summary="@string/pref_blacklist_summary"
+            android:title="@string/pref_blacklist" />
+
         <MultiSelectListPreference
             android:key="module_whitelist"
-            android:title="@string/pref_whitelist"
-            android:summary="@string/pref_whitelist_summary"/>
+            android:summary="@string/pref_whitelist_summary"
+            android:title="@string/pref_whitelist" />
+
+        <SwitchPreference
+            android:key="hide_icon"
+            android:defaultValue="false"
+            android:summary="@string/pref_hide_icon_summary"
+            android:title="@string/pref_hide_icon"/>
+
     </PreferenceCategory>
+
 </PreferenceScreen>

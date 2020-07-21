@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">小米推送增强</string>
-    <string name="xposed_description">小米推送机型伪装插件，如需使用请开启</string>
+    <string name="app_name">小米推送框架增强</string>
+    <string name="xposed_description">将设备制造商伪装成 Xiaomi 来启用小米推送服务\n需要安装小米推送相关组件</string>
 
-    <string name="pref_menu_get_conf_path">查看配置地址</string>
+    <string name="pref_menu_get_conf_path">查看配置文件路径</string>
     <string name="pref_cat_module">模块</string>
     <string name="pref_working_mode">工作模式</string>
-    <string name="pref_working_mode_summary">决定模块工作模式。请注意：内置黑名单会一直起作用。</string>
+    <string name="pref_working_mode_summary">决定模块的工作模式\n注意：内建的黑名单将会一直生效</string>
     <array name="pref_working_mode_entries">
         <item>黑名单</item>
         <item>白名单</item>
     </array>
     <string name="pref_blacklist">黑名单</string>
-    <string name="pref_blacklist_summary">避免增强的应用</string>
+    <string name="pref_blacklist_summary">选中的应用将不会生效</string>
     <string name="pref_whitelist">白名单</string>
-    <string name="pref_whitelist_summary">仅增强的应用</string>
+    <string name="pref_whitelist_summary">仅选中的应用生效</string>
+    <string name="pref_hide_icon">隐藏图标</string>
+    <string name="pref_hide_icon_summary">隐藏显示在桌面上的图标，可以在 Xposed 模块列表中打开\n打开后，您可能无法将模块添加到多用户环境中。如果出现问题，请关闭它</string>
+    <string name="pref_enhancement_status">增强模式状态</string>
+    <string name="pref_enhancement_status_summary">制造商: %s (%s / %s)\n品牌: %s (%s / %s)\nMIUI 版本名: %s\nMIUI 版本号: %s\nMIUI 版本日期: %s</string>
+    <string name="pref_enhancement_status_failed">未生效</string>
+    <string name="pref_enhancement_status_success">已生效</string>
 </resources>

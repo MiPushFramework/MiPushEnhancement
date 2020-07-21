@@ -1,6 +1,7 @@
-package top.trumeet.mipush.xmipushenhance.settings;
+package top.trumeet.mipush.settings;
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
