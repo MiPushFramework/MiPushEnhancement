@@ -1,10 +1,10 @@
 # MiPushEnhancement
 
-一个欺骗应用让他们误以为设备是小米 MIUI 的 Xposed 插件。
+一个欺骗应用让他们误以为设备是小米 MIUI 的 Xposed 模块。
 
 ## 使用
 
-1. 在 [Releases](https://github.com/MiPushFramework/MiPushEnhancement/releases/latest) 中下载最新 APK。
+1. 在 [Releases](https://github.com/MiPushFramework/MiPushEnhancement/releases/latest) 或 [Xposed Module Repository](https://repo.xposed.info/module/org.meowcat.xposed.mipush) 中下载最新 APK。
 
 2. 安装并在 Xposed, EdXposed 或其他没有恶意行为的 Xposed 实现 中激活模块。
 
