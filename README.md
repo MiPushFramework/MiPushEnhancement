@@ -37,7 +37,7 @@
 
 ## 内置黑名单
 
-为了防止出现意外情况，模块内置了一组黑名单。包名匹配黑名单中的软件将不被欺骗。没有选项可以关闭或修改黑名单。这些软件通常包括系统关键组件和依赖于机型判断的软件（如相机）。如果您对黑名单有建议，可以通过 [Issues](https://github.com/MiPushFramework/XMiPushEnhance/issues)、[Pull Request](https://github.com/MiPushFramework/XMiPushEnhance/pulls) 等方式贡献。
+为了防止出现意外情况，模块内置了一组黑名单。包名匹配黑名单中的软件将不被欺骗。没有选项可以关闭或修改黑名单。这些软件通常包括系统关键组件和依赖于机型判断的软件（如相机）。如果您对黑名单有建议，可以通过 [Issues](https://github.com/MlgmXyysd/MiPushEnhancement/issues)、[Pull Request](https://github.com/MlgmXyysd/MiPushEnhancement/pulls) 等方式贡献。
 
 # License
 
@@ -45,5 +45,6 @@
 
 # Credits
 
-MlgmXyysd 改进，重写，优化，修复bug
-Yuuta 原作，迁移，配置
+[MlgmXyysd](https://github.com/MlgmXyysd/) 改进，重写，优化，修复bug
+
+[YuutaW](https://github.com/Trumeet) 原作，迁移，配置，mipush相关组件
