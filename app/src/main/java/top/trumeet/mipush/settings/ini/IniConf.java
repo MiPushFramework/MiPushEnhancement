@@ -103,7 +103,7 @@ public class IniConf {
     private void compare(@NonNull Ini parent, @NonNull Ini child) {
         for (final String section : parent.keySet()) {
             if (!child.containsKey(section)) {
-                Log.i(TAG, "Adding section " + section);
+//                Log.i(TAG, "Adding section " + section);
                 child.put(section, parent.get(section));
                 child.putComment(section, parent.getComment(section));
             } else {
@@ -111,7 +111,7 @@ public class IniConf {
                 final Profile.Section childSection = child.get(section);
                 for (final String option : Objects.requireNonNull(parentSection).keySet()) {
                     if (!Objects.requireNonNull(childSection).containsKey(option)) {
-                        Log.i(TAG, "Adding option " + option);
+//                        Log.i(TAG, "Adding option " + option);
                         childSection.put(option, Objects.requireNonNull(parentSection.get(option)));
                         childSection.putComment(option, parentSection.getComment(option));
                     }
@@ -141,7 +141,7 @@ public class IniConf {
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public void write() throws IOException {
-        Log.d(TAG, "Saving configuration");
+//        Log.d(TAG, "Saving configuration");
         if (mIni.getFile() != null) {
             // Create the parent if needed.
             final File parent = mIni.getFile().getParentFile();
@@ -197,7 +197,7 @@ public class IniConf {
      * Put a value
      */
     public void put(@NonNull IniKey key, @Nullable Object value) {
-        Log.d(TAG, "put() " + key + ", " + value);
+//        Log.d(TAG, "put() " + key + ", " + value);
         mIni.put(key.section, key.option, value);
     }
 

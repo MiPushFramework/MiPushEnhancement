@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemProperties;
 import android.text.Html;
-import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +15,6 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.meowcat.xposed.mipush.BuildConfig;
 import org.meowcat.xposed.mipush.R;
 import org.meowcat.xposed.mipush.Utils;
 
@@ -38,7 +36,6 @@ import top.trumeet.mipush.settings.ini.IniConf;
 import top.trumeet.mipush.settings.ini.IniConstants;
 import top.trumeet.mipush.settings.ini.IniUtils;
 
-import static org.meowcat.xposed.mipush.Constants.TAG;
 import static org.meowcat.xposed.mipush.Utils.hideIcon;
 
 public class PreferenceFragment extends moe.shizuku.preference.PreferenceFragment implements
@@ -116,7 +113,7 @@ public class PreferenceFragment extends moe.shizuku.preference.PreferenceFragmen
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.d(TAG, "onSharedPreferenceChanged(): " + key);
+//        Log.d(TAG, "onSharedPreferenceChanged(): " + key);
         if (key.equals("module_blacklist") || key.equals("module_whitelist")) {
             mConf.putAll(IniUtils.convertKeyToIni(key), new ArrayList<>(Objects.requireNonNull(sharedPreferences.getStringSet(key, Collections.emptySet()))));
         } else if (key.equals("hide_icon")) {

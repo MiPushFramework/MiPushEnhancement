@@ -18,8 +18,10 @@ import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 
 public class Utils {
+
     /**
      * Check package name in built-in blacklist
+     *
      * @param pkgName package name to check
      * @return is in built-in blacklist
      */
@@ -38,7 +40,7 @@ public class Utils {
      * call this method after got any MethodHookParam
      *
      * @param methodHookParam Xposed hook param
-     * @param callingPid Process Pid
+     * @param callingPid      Process Pid
      * @return true
      */
     public static boolean getParamAvailability(final XC_MethodHook.MethodHookParam methodHookParam, int callingPid) {
@@ -68,6 +70,7 @@ public class Utils {
 
     /**
      * Check Xposed module status
+     *
      * @return true if hooked
      */
     public static boolean isEnhancementEnabled() {
@@ -76,9 +79,10 @@ public class Utils {
 
     /**
      * Hide or show app icon
+     *
      * @param packageManager packageNamager
-     * @param componentName compoentName
-     * @param hide hide or show icon
+     * @param componentName  compoentName
+     * @param hide           hide or show icon
      */
     public static void hideIcon(PackageManager packageManager, ComponentName componentName, boolean hide) {
         packageManager.getComponentEnabledSetting(componentName);

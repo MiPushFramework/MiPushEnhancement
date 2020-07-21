@@ -22,16 +22,15 @@ public final class Constants {
 
     // Built-in package name Blacklists. The module will never
     // hook these packages due to known compatibility issues.
-    // regExp required
     public static final String[] BUILT_IN_BLACKLIST = new String[]{ // TODO: more built-in blacklist packages
             "android", // Android system
-            "com\\.android.*", // Android system components
-            "com\\.google\\.android.*", // Google apps
-            "de\\.robv\\.android\\.xposed\\.installer", // Xposed Installer
-            "org\\.meowcat\\.edxposed\\.manager", // EdXposed Manager
-            "com\\.xiaomi\\.xmsf", // MiPush Framework
-            "com\\.tencent\\.mm", // WeChat
-            "top\\.trumeet\\.mipush" // MiPush Manager
+            "com.android.*", // Android system components
+            "com.google.android.*", // Google apps
+            "de.robv.android.xposed.installer", // Xposed Installer
+            "org.meowcat.edxposed.manager", // EdXposed Manager
+            "com.xiaomi.xmsf", // MiPush Framework
+            "com.tencent.mm", // WeChat
+            "top.trumeet.mipush" // MiPush Manager
     }; // UserHandle.isCore(uid) will auto pass
 
     static {

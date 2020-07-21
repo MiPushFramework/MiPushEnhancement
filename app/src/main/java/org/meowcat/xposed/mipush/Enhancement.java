@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Binder;
 import android.os.UserHandle;
-import android.util.Log;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -12,6 +11,7 @@ import java.util.Collections;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import top.trumeet.mipush.settings.ini.IniConf;
@@ -23,7 +23,6 @@ import static org.meowcat.xposed.mipush.Constants.BRAND;
 import static org.meowcat.xposed.mipush.Constants.MODE_BLACK;
 import static org.meowcat.xposed.mipush.Constants.MODE_WHITE;
 import static org.meowcat.xposed.mipush.Constants.PROPS;
-import static org.meowcat.xposed.mipush.Constants.TAG;
 import static top.trumeet.mipush.settings.ini.IniConstants.MODULE_BLACKLIST;
 import static top.trumeet.mipush.settings.ini.IniConstants.MODULE_WHITELIST;
 import static top.trumeet.mipush.settings.ini.IniConstants.MODULE_WORKING_MODE;
@@ -44,7 +43,7 @@ public class Enhancement implements IXposedHookLoadPackage {
         String packageName = lpparam.packageName;
 
         if (Utils.inBuiltInBlackList(packageName)) {
-            // is blacklisted package
+            // is in built-in blacklisted package
             return;
         }
 
@@ -59,7 +58,9 @@ public class Enhancement implements IXposedHookLoadPackage {
                 final boolean availability = Utils.getParamAvailability(param, packagePid);
 
                 // hook myself
-                XposedHelpers.findAndHookMethod(Utils.class.getName(), lpparam.classLoader, "isEnhancementEnabled", XC_MethodReplacement.returnConstant(true));
+                if (packageName.equals(BuildConfig.APPLICATION_ID)) {
+                    XposedHelpers.findAndHookMethod(Utils.class.getName(), lpparam.classLoader, "isEnhancementEnabled", XC_MethodReplacement.returnConstant(true));
+                }
 
                 if ((boolean) callStaticMethod(UserHandle.class, "isCore", packageUid) || !availability) {
                     // is Android code package
@@ -81,7 +82,7 @@ public class Enhancement implements IXposedHookLoadPackage {
                             }
                             break;
                         default:
-                            Log.e(TAG, "Unknown working mode.");
+//                            Log.e(TAG, "Unknown working mode.");
                             return;
                     }
 
@@ -130,7 +131,7 @@ public class Enhancement implements IXposedHookLoadPackage {
                     XposedHelpers.setStaticObjectField(android.os.Build.class, "MANUFACTURER", BRAND);
                     XposedHelpers.setStaticObjectField(android.os.Build.class, "BRAND", BRAND);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    XposedBridge.log(e);
                 }
             }
         });

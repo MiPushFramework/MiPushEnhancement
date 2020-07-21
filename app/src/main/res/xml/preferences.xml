@@ -2,13 +2,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="@string/pref_cat_module"
-        android:key="pref_category">
+        android:key="pref_category"
+        android:title="@string/pref_cat_module">
 
         <Preference
             android:key="device_status"
-            android:title="@string/pref_enhancement_status"
-            android:summary="@string/pref_enhancement_status_failed" />
+            android:summary="@string/pref_enhancement_status_failed"
+            android:title="@string/pref_enhancement_status" />
 
         <SimpleMenuPreference
             android:defaultValue="blacklist"
@@ -29,10 +29,10 @@
             android:title="@string/pref_whitelist" />
 
         <SwitchPreference
-            android:key="hide_icon"
             android:defaultValue="false"
+            android:key="hide_icon"
             android:summary="@string/pref_hide_icon_summary"
-            android:title="@string/pref_hide_icon"/>
+            android:title="@string/pref_hide_icon" />
 
     </PreferenceCategory>
 

@@ -30,6 +30,7 @@ public class IniUtils {
 
     /**
      * Change file permission with given permission mode
+     *
      * @param file file to change permissions
      * @param mode file permission
      */
