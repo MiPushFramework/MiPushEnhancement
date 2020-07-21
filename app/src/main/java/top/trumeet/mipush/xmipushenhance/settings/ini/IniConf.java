@@ -1,4 +1,4 @@
-package mipush.xmipushenhance.settings.ini;
+package top.trumeet.mipush.xmipushenhance.settings.ini;
 
 import android.content.Context;
 import android.os.Process;
@@ -8,7 +8,7 @@ import android.system.StructStat;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import mipush.xmipushenhance.Constants;
+import top.trumeet.mipush.xmipushenhance.Constants;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
 
@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static mipush.xmipushenhance.settings.ini.IniConstants.*;
+import static top.trumeet.mipush.xmipushenhance.settings.ini.IniConstants.*;
 
 /**
  * The configuration that can be read both in module hook context
@@ -40,8 +40,8 @@ import static mipush.xmipushenhance.settings.ini.IniConstants.*;
  * the most common format of configuration in *nix systems. Doing so will enable us to create the most *nix-like configuration style.
  *
  * Some paths to use: (They are not hard-coded since the internal path is subject to change on different ROMs)
- * /data/user/user_id/mipush.xmipushenhance/etc/
- * /data/user/user_id/mipush.xmipushenhance/etc/module.conf
+ * /data/user/user_id/top.trumeet.mipush.xmipushenhance/etc/
+ * /data/user/user_id/top.trumeet.mipush.xmipushenhance/etc/module.conf
  */
 public class IniConf {
     private static final String TAG = "IniConf";

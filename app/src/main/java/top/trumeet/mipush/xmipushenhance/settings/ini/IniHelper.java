@@ -1,4 +1,4 @@
-package mipush.xmipushenhance.settings.ini;
+package top.trumeet.mipush.xmipushenhance.settings.ini;
 
 import android.os.Process;
 import android.system.ErrnoException;

@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import com.oasisfeng.android.util.Supplier;
 import com.oasisfeng.android.util.Suppliers;
-import mipush.xmipushenhance.BuildConfig;
+import top.trumeet.mipush.xmipushenhance.BuildConfig;
 
 import java.io.IOException;
 import java.lang.annotation.Retention;

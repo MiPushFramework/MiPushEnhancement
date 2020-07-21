@@ -1,4 +1,4 @@
-package mipush.xmipushenhance.settings.ini;
+package top.trumeet.mipush.xmipushenhance.settings.ini;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

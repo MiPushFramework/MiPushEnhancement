@@ -1,4 +1,4 @@
-package mipush.xmipushenhance.settings.ini;
+package top.trumeet.mipush.xmipushenhance.settings.ini;
 
 import static android.system.OsConstants.*;
 
@@ -13,7 +13,7 @@ public final class IniConstants {
     // For the users which do not have the module installed, we are unable to read from assets.
     // Hence, hardcoding into jar is a "not so good" choice.
     public static final String INI_DEFAULT = "# XMiPushEnhance configuration\n" +
-            "# The default configuration will be extracted if /data/user/user id/mipush.xmipushenhance/etc/module.conf is absent.\n" +
+            "# The default configuration will be extracted if /data/user/user id/top.trumeet.mipush.xmipushenhance/etc/module.conf is absent.\n" +
             "#\n" +
             "# This file will be overwritten when you change through the UI. You can change it via the UI or by hand.\n" +
             "#\n" +

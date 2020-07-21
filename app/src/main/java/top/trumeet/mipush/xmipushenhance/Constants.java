@@ -1,4 +1,4 @@
-package mipush.xmipushenhance;
+package top.trumeet.mipush.xmipushenhance;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

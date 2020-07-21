@@ -1,4 +1,4 @@
-package mipush.xmipushenhance.settings;
+package top.trumeet.mipush.xmipushenhance.settings;
 
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
@@ -11,10 +11,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import mipush.xmipushenhance.R;
-import mipush.xmipushenhance.settings.ini.IniConf;
-import mipush.xmipushenhance.settings.ini.IniConstants;
-import mipush.xmipushenhance.settings.ini.IniHelper;
+import top.trumeet.mipush.xmipushenhance.R;
+import top.trumeet.mipush.xmipushenhance.settings.ini.IniConf;
+import top.trumeet.mipush.xmipushenhance.settings.ini.IniConstants;
+import top.trumeet.mipush.xmipushenhance.settings.ini.IniHelper;
 import moe.shizuku.preference.MultiSelectListPreference;
 import moe.shizuku.preference.SimpleMenuPreference;
 

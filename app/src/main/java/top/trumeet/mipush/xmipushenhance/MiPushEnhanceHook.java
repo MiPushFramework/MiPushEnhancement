@@ -1,4 +1,4 @@
-package mipush.xmipushenhance;
+package top.trumeet.mipush.xmipushenhance;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,12 +7,12 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
-import mipush.xmipushenhance.settings.ini.IniConf;
-import mipush.xmipushenhance.settings.ini.IniConstants;
+import top.trumeet.mipush.xmipushenhance.settings.ini.IniConf;
+import top.trumeet.mipush.xmipushenhance.settings.ini.IniConstants;
 
 import java.util.Collections;
 
-import static mipush.xmipushenhance.Constants.BRAND;
+import static top.trumeet.mipush.xmipushenhance.Constants.BRAND;
 
 /**
  * XiaoMi fake build hook for xposed
