@@ -4,7 +4,7 @@
 
 ## 使用
 
-1. 在 [Releases](https://github.com/MlgmXyysd/MiPushEnhancement/releases/latest) 中下载最新 APK。
+1. 在 [Releases](https://github.com/MiPushFramework/MiPushEnhancement/releases/latest) 中下载最新 APK。
 
 2. 安装并在 Xposed, EdXposed 或其他没有恶意行为的 Xposed 实现 中激活模块。
 
@@ -37,7 +37,7 @@
 
 ## 内置黑名单
 
-为了防止出现意外情况，模块内置了一组黑名单。包名匹配黑名单中的软件将不被欺骗。没有选项可以关闭或修改黑名单。这些软件通常包括系统关键组件和依赖于机型判断的软件（如相机）。如果您对黑名单有建议，可以通过 [Issues](https://github.com/MlgmXyysd/MiPushEnhancement/issues)、[Pull Request](https://github.com/MlgmXyysd/MiPushEnhancement/pulls) 等方式贡献。
+为了防止出现意外情况，模块内置了一组黑名单。包名匹配黑名单中的软件将不被欺骗。没有选项可以关闭或修改黑名单。这些软件通常包括系统关键组件和依赖于机型判断的软件（如相机）。如果您对黑名单有建议，可以通过 [Issues](https://github.com/MiPushFramework/MiPushEnhancement/issues)、[Pull Request](https://github.com/MiPushFramework/MiPushEnhancement/pulls) 等方式贡献。
 
 # License
 
