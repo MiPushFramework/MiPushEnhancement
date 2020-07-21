@@ -2,6 +2,7 @@ package org.meowcat.xposed.mipush;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.os.Binder;
 import android.os.UserHandle;
 
@@ -52,17 +53,14 @@ public class Enhancement implements IXposedHookLoadPackage {
             @Override
             protected void afterHookedMethod(MethodHookParam param) {
                 final Context context = (Context) param.args[0];
-                final int userId = UserHandle.getUserHandleForUid(context.getApplicationInfo().uid).hashCode();
-                final int packageUid = Binder.getCallingUid();
-                final int packagePid = Binder.getCallingPid();
-                final boolean availability = Utils.getParamAvailability(param, packagePid);
+                final boolean availability = Utils.getParamAvailability(param, Binder.getCallingPid());
 
-                // hook myself
                 if (packageName.equals(BuildConfig.APPLICATION_ID)) {
+                    // hook myself
                     XposedHelpers.findAndHookMethod(Utils.class.getName(), lpparam.classLoader, "isEnhancementEnabled", XC_MethodReplacement.returnConstant(true));
                 }
 
-                if ((boolean) callStaticMethod(UserHandle.class, "isCore", packageUid) || !availability) {
+                if ((boolean) callStaticMethod(UserHandle.class, "isCore", Binder.getCallingUid()) || !availability) {
                     // is Android code package
                     return;
                 }
@@ -90,8 +88,6 @@ public class Enhancement implements IXposedHookLoadPackage {
                     findAndHookMethod(XposedHelpers.findClass("android.os.SystemProperties", lpparam.classLoader), "native_get", String.class, String.class, new XC_MethodHook() {
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) {
-                            final int packagePid = Binder.getCallingPid();
-                            final boolean availability = Utils.getParamAvailability(param, packagePid);
                             final String key = param.args[0].toString();
 
                             if (PROPS.containsKey(key)) {
@@ -104,8 +100,6 @@ public class Enhancement implements IXposedHookLoadPackage {
                     findAndHookMethod(XposedHelpers.findClass("android.os.SystemProperties", lpparam.classLoader), "native_get_int", String.class, int.class, new XC_MethodHook() {
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) {
-                            final int packagePid = Binder.getCallingPid();
-                            final boolean availability = Utils.getParamAvailability(param, packagePid);
                             final String key = param.args[0].toString();
 
                             if (PROPS.containsKey(key)) {
@@ -118,8 +112,6 @@ public class Enhancement implements IXposedHookLoadPackage {
                     findAndHookMethod(XposedHelpers.findClass("android.os.SystemProperties", lpparam.classLoader), "native_get_long", String.class, long.class, new XC_MethodHook() {
                         @Override
                         protected void afterHookedMethod(MethodHookParam param) {
-                            final int packagePid = Binder.getCallingPid();
-                            final boolean availability = Utils.getParamAvailability(param, packagePid);
                             final String key = param.args[0].toString();
 
                             if (PROPS.containsKey(key)) {
