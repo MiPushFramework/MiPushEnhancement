@@ -6,6 +6,9 @@ public final class IniConstants {
     // linux permission rwx rwx rwx, OCT is 00777, DEX is 511
     public static final int rwxrwxrwx = 511;
 
+    public static final String CONF_PATH = "etc";
+    public static final String CONF_FILE = "module.conf";
+
     public static final IniKey MODULE_WORKING_MODE = new IniKey("module", "working_mode");
     public static final IniKey MODULE_BLACKLIST = new IniKey("module", "blacklist");
     public static final IniKey MODULE_WHITELIST = new IniKey("module", "whitelist");

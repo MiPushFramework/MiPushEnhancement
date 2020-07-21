@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemProperties;
+import android.os.UserHandle;
 import android.text.Html;
 import android.util.Pair;
 import android.view.Menu;
@@ -49,7 +50,7 @@ public class PreferenceFragment extends moe.shizuku.preference.PreferenceFragmen
         setHasOptionsMenu(true);
         if (savedInstanceState == null) {
             try {
-                mConf = new IniConf(requireContext());
+                mConf = new IniConf(UserHandle.getUserHandleForUid(requireContext().getApplicationInfo().uid).hashCode());
             } catch (IOException e) {
                 // We have encountered an unrecoverable error.
                 throw new RuntimeException(e);

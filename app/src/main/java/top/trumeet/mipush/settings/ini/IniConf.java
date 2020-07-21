@@ -1,6 +1,8 @@
 package top.trumeet.mipush.settings.ini;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.FileUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static top.trumeet.mipush.settings.ini.IniConstants.CONF_FILE;
+import static top.trumeet.mipush.settings.ini.IniConstants.CONF_PATH;
 import static top.trumeet.mipush.settings.ini.IniConstants.INI_DEFAULT;
 import static top.trumeet.mipush.settings.ini.IniConstants.TAG;
 import static top.trumeet.mipush.settings.ini.IniConstants.rwxrwxrwx;
@@ -52,19 +56,28 @@ public class IniConf {
      * If the file is absent, it will be created.
      * If the file is null, write() will do nothing.
      */
-    public IniConf(@Nullable final File file) throws IOException {
-        if (file != null) {
-            setFilePermissionsFromMode(file, rwxrwxrwx);
+    @SuppressWarnings({"ResultOfMethodCallIgnored"})
+    public IniConf(final File file) throws IOException {
+        final File conf_path = new File(file, CONF_PATH);
+        final File conf_file = new File(conf_path, CONF_FILE);
+
+        FileUtils.setPermissions(file.getAbsolutePath() + "/", rwxrwxrwx, -1, -1);
+
+        if (!conf_path.exists()) {
+            conf_path.mkdir();
         }
-        mIni = createDefaultConfig(file);
+
+        FileUtils.setPermissions(conf_path.getAbsolutePath() + "/", rwxrwxrwx, -1, -1);
+
+        mIni = createDefaultConfig(conf_file);
         // TODO: File locking?
     }
 
     /**
      * Construct using the default path
      */
-    public IniConf(Context context) throws IOException {
-        this(IniUtils.getConfigPath(context));
+    public IniConf(int userId) throws IOException {
+        this(IniUtils.getConfigPath(userId));
     }
 
     /**
@@ -74,15 +87,13 @@ public class IniConf {
      * @return The upgraded ini. It will not be stored in file system.
      * @throws IOException In case there's errors.
      */
-    private Ini createDefaultConfig(@Nullable final File file) throws IOException {
+    private Ini createDefaultConfig(final File file) throws IOException {
         final Ini defaultIni = new Ini();
         defaultIni.load(new ByteArrayInputStream(INI_DEFAULT.getBytes(StandardCharsets.UTF_8)));
         final Ini currentIni = new Ini();
-        if (file != null) {
-            currentIni.setFile(file);
-            if (file.exists()) {
-                currentIni.load(file);
-            }
+        currentIni.setFile(file);
+        if (file.exists()) {
+            currentIni.load(file);
         }
         // Instead of just copying, we compare and proceed the diffs.
         // Check for absent options to be added.
@@ -139,19 +150,21 @@ public class IniConf {
     /**
      * Write all changes to the file system. If the file is absent, it will be created.
      */
-    @SuppressWarnings("ResultOfMethodCallIgnored")
+    @SuppressLint("WorldReadableFiles")
+    @SuppressWarnings({"ResultOfMethodCallIgnored", "deprecation"})
     public void write() throws IOException {
 //        Log.d(TAG, "Saving configuration");
         if (mIni.getFile() != null) {
             // Create the parent if needed.
             final File parent = mIni.getFile().getParentFile();
+            FileUtils.setPermissions(parent.getParent() + "/", 511, -1, -1);
             if (!Objects.requireNonNull(parent).exists()) {
                 parent.mkdir();
             }
             // Write, or create.
             mIni.store();
 
-            setFilePermissionsFromMode(mIni.getFile(), rwxrwxrwx);
+            setFilePermissionsFromMode(mIni.getFile().getAbsolutePath(), Context.MODE_WORLD_READABLE);
         } else {
             Log.w(TAG, "File is null. Ignoring.");
         }

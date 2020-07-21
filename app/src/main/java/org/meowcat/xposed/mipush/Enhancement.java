@@ -53,6 +53,12 @@ public class Enhancement implements IXposedHookLoadPackage {
             @Override
             protected void afterHookedMethod(MethodHookParam param) {
                 final Context context = (Context) param.args[0];
+                final ApplicationInfo applicationInfo = context.getApplicationInfo();
+                if (applicationInfo == null) {
+                    // null application info, exit
+                    return;
+                }
+                final int userId = UserHandle.getUserHandleForUid(applicationInfo.uid).hashCode();
                 final boolean availability = Utils.getParamAvailability(param, Binder.getCallingPid());
 
                 if (packageName.equals(BuildConfig.APPLICATION_ID)) {
@@ -66,7 +72,7 @@ public class Enhancement implements IXposedHookLoadPackage {
                 }
 
                 try {
-                    final IniConf conf = new IniConf(context);
+                    final IniConf conf = new IniConf(userId);
 
                     switch (conf.get(MODULE_WORKING_MODE, "blacklist")) {
                         case MODE_BLACK:
