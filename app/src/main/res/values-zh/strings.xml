@@ -8,6 +8,7 @@
     <string name="pref_working_mode">工作模式</string>
     <string name="pref_working_mode_summary">决定模块的工作模式\n注意：内建的黑名单将会一直生效</string>
     <array name="pref_working_mode_entries">
+        <item>已禁用</item>
         <item>黑名单</item>
         <item>白名单</item>
     </array>
@@ -21,4 +22,5 @@
     <string name="pref_enhancement_status_summary">制造商: %s (%s / %s)\n品牌: %s (%s / %s)\nMIUI 版本名: %s\nMIUI 版本号: %s\nMIUI 版本日期: %s</string>
     <string name="pref_enhancement_status_failed">未生效</string>
     <string name="pref_enhancement_status_success">已生效</string>
+    <string name="pref_enhancement_status_security">检测到您正在使用恶意软件激活此模块\n此模块的全部功能已禁用\n请卸载恶意软件后重新打开此界面</string>
 </resources>

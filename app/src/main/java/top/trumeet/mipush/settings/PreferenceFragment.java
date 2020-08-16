@@ -38,10 +38,12 @@ import top.trumeet.mipush.settings.ini.IniConstants;
 import top.trumeet.mipush.settings.ini.IniUtils;
 
 import static org.meowcat.xposed.mipush.Utils.hideIcon;
+import static org.meowcat.xposed.mipush.Utils.isExpModuleActive;
 
 public class PreferenceFragment extends moe.shizuku.preference.PreferenceFragment implements
         SharedPreferences.OnSharedPreferenceChangeListener {
 
+    private boolean disable = false;
     private IniConf mConf;
 
     @Override
@@ -56,9 +58,25 @@ public class PreferenceFragment extends moe.shizuku.preference.PreferenceFragmen
                 throw new RuntimeException(e);
             }
             render();
-
+            disable = isExpModuleActive(getContext());
             SwitchPreference hide_icon = (SwitchPreference) findPreference("hide_icon");
             hide_icon.setChecked(mConf.get(IniUtils.convertKeyToIni("hide_icon"), "false").equalsIgnoreCase("true"));
+            // User is using malware, disable all preferences
+            Preference module_working_mode = findPreference("module_working_mode");
+            Preference module_blacklist = findPreference("module_blacklist");
+            Preference module_whitelist = findPreference("module_whitelist");
+            if (disable) {
+                Preference device_status = findPreference("device_status");
+                mConf.put(IniUtils.convertKeyToIni("module_malware"), "true");
+                mConf.put(IniUtils.convertKeyToIni("module_working_mode"), "disabled");
+                device_status.setEnabled(false);
+                module_working_mode.setEnabled(false);
+                module_blacklist.setEnabled(false);
+                module_whitelist.setEnabled(false);
+                device_status.setSummary(R.string.pref_enhancement_status_security);
+            } else {
+                mConf.put(IniUtils.convertKeyToIni("module_malware"), "false");
+            }
         }
     }
 
@@ -67,10 +85,12 @@ public class PreferenceFragment extends moe.shizuku.preference.PreferenceFragmen
         getPreferenceManager().setSharedPreferencesName("settings");
         addPreferencesFromResource(R.xml.preferences);
 
-        Preference device_status = findPreference("device_status");
-        String status = Utils.isEnhancementEnabled() ? getString(R.string.pref_enhancement_status_success) : getString(R.string.pref_enhancement_status_failed);
-        status = String.format("%s\n\n%s", status, String.format(getString(R.string.pref_enhancement_status_summary), Build.MANUFACTURER, SystemProperties.get("ro.product.manufacturer", "failed"), SystemProperties.get("ro.product.vendor.manufacturer", "failed"), Build.BRAND, SystemProperties.get("ro.product.brand", "failed"), SystemProperties.get("ro.product.vendor.brand", "failed"), SystemProperties.get("ro.miui.ui.version.name", "failed"), SystemProperties.get("ro.miui.ui.version.code", "failed"), SystemProperties.get("ro.miui.version.code_time", "failed")));
-        device_status.setSummary(status);
+        if (!disable) {
+            Preference device_status = findPreference("device_status");
+            String status = Utils.isEnhancementEnabled() ? getString(R.string.pref_enhancement_status_success) : getString(R.string.pref_enhancement_status_failed);
+            status = String.format("%s\n\n%s", status, String.format(getString(R.string.pref_enhancement_status_summary), Build.MANUFACTURER, SystemProperties.get("ro.product.manufacturer", "failed"), SystemProperties.get("ro.product.vendor.manufacturer", "failed"), Build.BRAND, SystemProperties.get("ro.product.brand", "failed"), SystemProperties.get("ro.product.vendor.brand", "failed"), SystemProperties.get("ro.miui.ui.version.name", "failed"), SystemProperties.get("ro.miui.ui.version.code", "failed"), SystemProperties.get("ro.miui.version.code_time", "failed")));
+            device_status.setSummary(status);
+        }
     }
 
     /**

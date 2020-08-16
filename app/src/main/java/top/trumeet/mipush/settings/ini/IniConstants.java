@@ -10,6 +10,7 @@ public final class IniConstants {
     public static final String CONF_FILE = "module.conf";
 
     public static final IniKey MODULE_WORKING_MODE = new IniKey("module", "working_mode");
+    public static final IniKey MODULE_DISABLED = new IniKey("module", "malware");
     public static final IniKey MODULE_BLACKLIST = new IniKey("module", "blacklist");
     public static final IniKey MODULE_WHITELIST = new IniKey("module", "whitelist");
 

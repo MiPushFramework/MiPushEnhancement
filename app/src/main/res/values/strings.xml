@@ -7,10 +7,12 @@
     <string name="pref_working_mode">Working mode</string>
     <string name="pref_working_mode_summary">Determine the working mode of the module\nNote: the built-in blacklist will always work</string>
     <array name="pref_working_mode_entries">
+        <item>Disabled</item>
         <item>Blacklist</item>
         <item>Whitelist</item>
     </array>
     <array name="pref_working_mode_entry_values">
+        <item>disabled</item>
         <item>blacklist</item>
         <item>whitelist</item>
     </array>
@@ -24,4 +26,5 @@
     <string name="pref_enhancement_status_summary">Manufacturer: %s (%s / %s)\nBrand: %s (%s / %s)\nMIUI Version Name: %s\nMIUI Version Code: %s\nMIUI Version Time: %s</string>
     <string name="pref_enhancement_status_failed">Disabled</string>
     <string name="pref_enhancement_status_success">Enabled</string>
+    <string name="pref_enhancement_status_security">It is detected that you are using malware to activate this module.\nAll functions of this module have been disabled.\nPlease uninstall the malware and re-open this interface.</string>
 </resources>

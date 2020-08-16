@@ -11,7 +11,7 @@
             android:title="@string/pref_enhancement_status" />
 
         <SimpleMenuPreference
-            android:defaultValue="blacklist"
+            android:defaultValue="disabled"
             android:entries="@array/pref_working_mode_entries"
             android:entryValues="@array/pref_working_mode_entry_values"
             android:key="module_working_mode"

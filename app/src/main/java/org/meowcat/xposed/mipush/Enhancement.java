@@ -5,8 +5,11 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.os.Binder;
 import android.os.UserHandle;
+import android.util.Base64;
+import android.widget.Toast;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -25,6 +28,7 @@ import static org.meowcat.xposed.mipush.Constants.MODE_BLACK;
 import static org.meowcat.xposed.mipush.Constants.MODE_WHITE;
 import static org.meowcat.xposed.mipush.Constants.PROPS;
 import static top.trumeet.mipush.settings.ini.IniConstants.MODULE_BLACKLIST;
+import static top.trumeet.mipush.settings.ini.IniConstants.MODULE_DISABLED;
 import static top.trumeet.mipush.settings.ini.IniConstants.MODULE_WHITELIST;
 import static top.trumeet.mipush.settings.ini.IniConstants.MODULE_WORKING_MODE;
 
@@ -59,22 +63,21 @@ public class Enhancement implements IXposedHookLoadPackage {
                     return;
                 }
                 final int userId = UserHandle.getUserHandleForUid(applicationInfo.uid).hashCode();
-                final boolean availability = Utils.getParamAvailability(param, Binder.getCallingPid());
+                //final boolean availability = Utils.getParamAvailability(param, Binder.getCallingPid());
 
-                if (packageName.equals(BuildConfig.APPLICATION_ID)) {
-                    // hook myself
-                    XposedHelpers.findAndHookMethod(Utils.class.getName(), lpparam.classLoader, "isEnhancementEnabled", XC_MethodReplacement.returnConstant(true));
-                }
-
-                if ((boolean) callStaticMethod(UserHandle.class, "isCore", Binder.getCallingUid()) || !availability) {
+                if ((boolean) callStaticMethod(UserHandle.class, "isCore", Binder.getCallingUid())) {
                     // is Android code package
                     return;
                 }
 
                 try {
                     final IniConf conf = new IniConf(userId);
+                    if (conf.get(MODULE_DISABLED, "true").equals("true")) {
+                        XposedBridge.log(new String(Base64.decode("RG8gTk9UIHVzZSBUYWlDaGkgYW55d2F5XG7or7fkuI3opoHkvb/nlKjlpKrmnoHmiJbml6DmnoE=".getBytes(StandardCharsets.UTF_8), Base64.DEFAULT)));
+                        return;
+                    }
 
-                    switch (conf.get(MODULE_WORKING_MODE, "blacklist")) {
+                    switch (conf.get(MODULE_WORKING_MODE, "disabled")) {
                         case MODE_BLACK:
                             if (conf.getAll(MODULE_BLACKLIST, Collections.emptyList()).contains(packageName)) {
                                 return;
@@ -128,6 +131,11 @@ public class Enhancement implements IXposedHookLoadPackage {
 
                     XposedHelpers.setStaticObjectField(android.os.Build.class, "MANUFACTURER", BRAND);
                     XposedHelpers.setStaticObjectField(android.os.Build.class, "BRAND", BRAND);
+
+                    if (packageName.equals(BuildConfig.APPLICATION_ID)) {
+                        // hook myself
+                        XposedHelpers.findAndHookMethod(Utils.class.getName(), lpparam.classLoader, "isEnhancementEnabled", XC_MethodReplacement.returnConstant(true));
+                    }
                 } catch (IOException e) {
                     XposedBridge.log(e);
                 }
