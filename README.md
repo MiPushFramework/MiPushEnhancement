@@ -41,7 +41,7 @@
 
 # License
 
-[GPL v3](LICENSE)
+[AMTPL v1 + GPL v3](LICENSE)
 
 # Credits
 

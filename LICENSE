@@ -1,4 +1,113 @@
-Modified: Any distribution (including but not limited to source code, binary, decompilation or repackaging) is not allowed to delete or change the code of detecting malware and the operation after detecting malware. In case of conflict with any license, the modified Additional license shall prevail.
+                ANTI MALWARE TAICHI PUBLIC LICENSE
+				    Version 1, August 2020
+
+ Copyright (C) 2020 Code & Repository owner
+
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
+                            Preamble
+
+  In view of the malicious behavior of TaiChi framework (the modified
+closed source commercial redistribution version of xposed framework),
+we created the Anti Malware TaiChi Public License (AMTPL) to protect
+the code rights related to anti TaiChi framework and applications that
+donot want to be used by malicious framework TaiChi.
+ 
+                ANTI MALWARE TAICHI PUBLIC LICENSE
+   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+  0. Definitions.
+
+  "This License" refers to version 1 of the Anti Malware TaiChi Public
+License (AMTPL).
+
+  "Copyright" also means copyright-like laws that apply to other kinds
+of works, such as semiconductor masks.
+
+  "The Program" refers to any copyrightable work licensed under this
+License. Each licensee is addressed as "you". "Licensees" and
+"recipients" may be individuals or organizations.
+
+  To "modify" a work means to copy from or adapt all or part of the
+work in a fashion requiring copyright permission, other than the making
+of an exact copy. The resulting work is called a "modified version" of
+the earlier work or a work "based on" the earlier work.
+
+  A "covered work" means either the unmodified Program or a work based
+on the Program.
+
+  "TaiChi" refers to the modified closed source commercial redistribution
+version of xposed framework, developed by Shenzhen Dimen Space Network
+Technology Co., Ltd.
+
+  "Second License" means a supplement to this license. In case of conflict
+between the second license and part of this license, the content of this
+license shall prevail. No terms or conditions in this license apply to the
+second license.
+
+  1. Scope of application.
+  
+  This Agreement applies to any project that does not want the malicious
+framework TaiChi to function properly. Including but not limited to
+xposed modules, libraries, applications.
+
+  2. Basic Permissions.
+  
+  This license reserves all rights by default (and does not grant any
+rights), and only restricts the possible situations. In case of no
+conflict with the terms and conditions of this license, the rights granted
+by the second license shall prevail.
+
+  Changing the license is not allowed, but you can change the second
+license if it meets the requirements of the second license.
+
+  3. Distributing Verbatim, Modified or Modified Source Copies or Versions.
+
+  Any distribution (including but not limited to modify source code,
+binary, decompilation or repackaging) is not allowed to delete or
+change the code of detecting malicious framework TaiChi and the operation
+after detecting malicious framework TaiChi.
+
+  4. Acceptance Not Required for Having Copies.
+
+  You are not required to accept this License in order to receive or
+run a copy of the Program.  Ancillary propagation of a covered work
+occurring solely as a consequence of using peer-to-peer transmission
+to receive a copy likewise does not require acceptance.  However,
+nothing other than this License grants you permission to propagate or
+modify any covered work.  These actions infringe copyright if you do
+not accept this License.  Therefore, by modifying or propagating a
+covered work, you indicate your acceptance of this License to do so.
+
+  5. Automatic Licensing of Downstream Recipients.
+
+  Each time you convey a covered work, the recipient automatically
+receives a license from the original licensors, to run, modify and
+propagate that work, subject to this License.  You are not responsible
+for enforcing compliance by third parties with this License.
+
+  An "entity transaction" is a transaction transferring control of an
+organization, or substantially all assets of one, or subdividing an
+organization, or merging organizations.  If propagation of a covered
+work results from an entity transaction, each party to that
+transaction who receives a copy of the work also receives whatever
+licenses to the work the party's predecessor in interest had or could
+give under the previous paragraph, plus a right to possession of the
+Corresponding Source of the work from the predecessor in interest, if
+the predecessor has it or can get it with reasonable efforts.
+
+  You may not impose any further restrictions on the exercise of the
+rights granted or affirmed under this License.  For example, you may
+not impose a license fee, royalty, or other charge for exercise of
+rights granted under this License, and you may not initiate litigation
+(including a cross-claim or counterclaim in a lawsuit) alleging that
+any patent claim is infringed by making, using, selling, offering for
+sale, or importing the Program or any portion of it.
+  
+                     END OF TERMS AND CONDITIONS
+
+------------------------Second License Below---------------------------
 
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
